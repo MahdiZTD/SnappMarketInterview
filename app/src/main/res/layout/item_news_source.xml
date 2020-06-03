@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.ztd.snappmarketinterview.mvvm.sourcesfragment.adapter.NewsSourceItemViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_padding"
+        android:onClick="@{() -> vm.onClick()}"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/item_corner_radios">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v_guide_start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="387dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/v_guide_end"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/side_padding" />
+
+            <TextView
+                android:id="@+id/text_name"
+                style="@style/ItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_padding"
+                android:text="@{vm.name}"
+                app:layout_constraintBottom_toTopOf="@id/text_description"
+                app:layout_constraintStart_toStartOf="@id/v_guide_start"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title" />
+
+            <TextView
+                android:id="@+id/text_category"
+                style="@style/ItemCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.category}"
+                app:layout_constraintBottom_toBottomOf="@id/text_name"
+                app:layout_constraintEnd_toEndOf="@id/v_guide_end"
+                app:layout_constraintTop_toTopOf="@id/text_name"
+                tools:text="General" />
+
+            <TextView
+                android:id="@+id/text_description"
+                style="@style/ItemDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_padding"
+                android:layout_marginBottom="@dimen/small_padding"
+                android:text="@{vm.description}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/v_guide_end"
+                app:layout_constraintStart_toStartOf="@id/v_guide_start"
+                app:layout_constraintTop_toBottomOf="@id/text_name"
+                tools:text="@tools:sample/lorem" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

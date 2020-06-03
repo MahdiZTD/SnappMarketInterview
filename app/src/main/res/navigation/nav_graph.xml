@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/sourceFragment">
+
+    <fragment
+        android:id="@+id/sourceFragment"
+        android:name="com.ztd.snappmarketinterview.mvvm.sourcesfragment.SourceFragment"
+        android:label="News Headlines"
+        tools:layout="@layout/fragment_source">
+        <action
+            android:id="@+id/action_sourceFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.ztd.snappmarketinterview.mvvm.articlefragment.ArticleFragment"
+        android:label="{sourceName}"
+        tools:layout="@layout/fragment_article">
+        <argument
+            android:name="sourceId"
+            app:argType="string" />
+        <argument
+            android:name="sourceName"
+            app:argType="string" />
+    </fragment>
+</navigation>
