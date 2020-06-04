@@ -24,7 +24,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
 
     @Inject
     lateinit var adapter: NewsArticleAdapter
-
+bui
     override val bindingVariable: Int
         get() = BR.vm
     override val layoutId: Int
