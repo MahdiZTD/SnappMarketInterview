@@ -41,6 +41,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding, ArticleViewModel>()
         super.onViewCreated(view, savedInstanceState)
         initialAdapter()
         subscribeToLiveData()
+
         mViewModel.apiGetNewsArticleBySource(ArticleFragmentArgs.fromBundle(requireArguments()).sourceId)
     }
 

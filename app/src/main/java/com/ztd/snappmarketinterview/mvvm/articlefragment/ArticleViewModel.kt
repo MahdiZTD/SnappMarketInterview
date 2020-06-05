@@ -25,22 +25,29 @@ class ArticleViewModel(
     val articleLiveData = MutableLiveData<MutableList<ArticleResponse>>()
 
     fun apiGetNewsArticleBySource(sourceId: String) {
-        compositeDisposable.add(
-            dataManager.getNewsHeadlines(Constants.API_KEY, sourceId)
-                .subscribeOn(schedulersProvider.io())
-                .observeOn(schedulersProvider.ui())
-                .subscribe(
-                    {
-                        articleLiveData.value = it.articles
-                    },
-                    {
-                        it.printStackTrace()
-                    }
-                )
-        )
+
+        if (dataManager.hasApiCallInPast(sourceId)) {
+            compositeDisposable.add(
+                dataManager.getNewsHeadlines(Constants.API_KEY, sourceId)
+                    .subscribeOn(schedulersProvider.io())
+                    .observeOn(schedulersProvider.ui())
+                    .subscribe(
+                        {
+                            dataManager.saveApiCallTimeBySource(
+                                sourceId,
+                                System.currentTimeMillis()
+                            )
+                            articleLiveData.value = it.articles
+                        },
+                        {
+                            it.printStackTrace()
+                        }
+                    )
+            )
+        }
     }
 
-    fun databaseSaveArticles(articles:MutableList<ArticleEntity>){
+    fun databaseSaveArticles(articles: MutableList<ArticleEntity>) {
         compositeDisposable.add(
             dataManager.saveAllNewsArticle(articles)
                 .subscribeOn(schedulersProvider.io())
@@ -49,7 +56,7 @@ class ArticleViewModel(
         )
     }
 
-    fun databaseFetchNewsArticle(sourceId: String):LiveData<MutableList<ArticleEntity>>? =
+    fun databaseFetchNewsArticle(sourceId: String): LiveData<MutableList<ArticleEntity>>? =
         dataManager.getAllNewsArticleBySource(sourceId)
 
 }

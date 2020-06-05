@@ -27,6 +27,12 @@ class DataManagerImp @Inject constructor(
     private val preferenceHelper: PreferenceHelper
 ) : DataManager {
 
+    override fun saveApiCallTimeBySource(source: String, time: Long) =
+        preferenceHelper.saveApiCallTimeBySource(source, time)
+
+    override fun hasApiCallInPast(source: String): Boolean =
+        preferenceHelper.hasApiCallInPast(source)
+
     override fun saveAllNewsArticle(articles: MutableList<ArticleEntity>): Completable =
         databaseHelper.saveAllNewsArticle(articles)
 

@@ -2,6 +2,7 @@ package com.ztd.snappmarketinterview.infrastructure.data.local.preference
 
 import android.content.Context
 import android.content.SharedPreferences
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,9 +14,10 @@ import javax.inject.Singleton
 
 interface PreferenceHelper {
 
-//    fun getToken(): String?
-//
-//    fun setToken(accessToken: String?)
+
+    fun saveApiCallTimeBySource(source: String, time: Long)
+
+    fun hasApiCallInPast(source: String): Boolean
 
 }
 
@@ -30,13 +32,14 @@ class PreferenceHelperImp @Inject constructor(context: Context) : PreferenceHelp
         context.getSharedPreferences("GUNG_HO_PREF", Context.MODE_PRIVATE)
 
 
-//    override fun getToken(): String? = mPrefs.getString(
-//        PREF_KEY_ACCESS_TOKEN,
-//        null
-//    )
-//
-//    override fun setToken(accessToken: String?) {
-//        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).apply()
-//    }
+    override fun saveApiCallTimeBySource(source: String, time: Long) {
+        mPrefs.edit().putLong(source, time).apply()
+    }
+
+    override fun hasApiCallInPast(source: String): Boolean {
+        val lastCall = mPrefs.getLong(source, 0)
+        return TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - lastCall) >= 15
+    }
+
 
 }
